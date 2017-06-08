@@ -3,6 +3,7 @@ package com.winx.test.river;
 import com.winx.impl.aop.AopPoint;
 
 import java.util.Arrays;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * @author wangwenxiang
@@ -10,14 +11,12 @@ import java.util.Arrays;
  */
 public class AopTest extends AopPoint {
 
-    private AopTest(){}
-
+    private AtomicInteger i = new AtomicInteger(0);
     public void before() {
-        System.out.println("params:" + Arrays.toString(getParams()));
+        System.out.println(i.incrementAndGet());
     }
 
     public void after() {
-        System.out.println("result:" + getResult());
     }
 
     public void afterReturing() {

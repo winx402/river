@@ -74,22 +74,39 @@ public class MethodPointerHandler {
 
     public static class MethodPointerLimit2 {
 
+        /**
+         * 获取目标方法Method对象
+         */
         protected Method getMethod() {
             return pointerThreadLocal.get().getMethod();
         }
 
+        /**
+         * 获取入参
+         */
         protected Object[] getParams() {
             return pointerThreadLocal.get().getObjects();
         }
 
+        /**
+         * 修改入参
+         */
         protected void setParams(Object[] objects) {
             pointerThreadLocal.get().setObjects(objects);
         }
 
+        /**
+         * 获取返回结果
+         * 在before中调用这个方法将返回null
+         */
         protected Object getResult() {
             return pointerThreadLocal.get().getResult();
         }
 
+        /**
+         * 修改返回结果
+         * 在before中设置的返回结果将被正真的结果覆盖
+         */
         protected void setResult(Object result) {
             pointerThreadLocal.get().setResult(result);
         }
