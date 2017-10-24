@@ -1,5 +1,73 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="MarkdownProjectSettings">
+    <PreviewSettings splitEditorLayout="FIRST" splitEditorPreview="PREVIEW" useGrayscaleRendering="false" zoomFactor="1.0" maxImageWidth="0" showGitHubPageIfSynced="false" allowBrowsingInPreview="false" synchronizePreviewPosition="false" highlightPreviewType="LINE" highlightFadeOut="5" highlightOnTyping="false" synchronizeSourcePosition="false" verticallyAlignSourceAndPreviewSyncPosition="true" showSearchHighlightsInPreview="true" showSelectionInPreview="true">
+      <PanelProvider>
+        <provider providerId="com.vladsch.idea.multimarkdown.editor.javafx.html.panel" providerName="JavaFX WebView" />
+      </PanelProvider>
+    </PreviewSettings>
+    <ParserSettings gitHubSyntaxChange="false">
+      <PegdownExtensions>
+        <option name="ABBREVIATIONS" value="false" />
+        <option name="ANCHORLINKS" value="true" />
+        <option name="ASIDE" value="false" />
+        <option name="ATXHEADERSPACE" value="false" />
+        <option name="AUTOLINKS" value="true" />
+        <option name="DEFINITIONS" value="true" />
+        <option name="DEFINITION_BREAK_DOUBLE_BLANK_LINE" value="false" />
+        <option name="FENCED_CODE_BLOCKS" value="true" />
+        <option name="FOOTNOTES" value="false" />
+        <option name="HARDWRAPS" value="true" />
+        <option name="INSERTED" value="false" />
+        <option name="QUOTES" value="false" />
+        <option name="RELAXEDHRULES" value="true" />
+        <option name="SMARTS" value="false" />
+        <option name="STRIKETHROUGH" value="true" />
+        <option name="SUBSCRIPT" value="false" />
+        <option name="SUPERSCRIPT" value="false" />
+        <option name="SUPPRESS_HTML_BLOCKS" value="false" />
+        <option name="SUPPRESS_INLINE_HTML" value="false" />
+        <option name="TABLES" value="true" />
+        <option name="TASKLISTITEMS" value="true" />
+        <option name="TOC" value="false" />
+        <option name="WIKILINKS" value="true" />
+      </PegdownExtensions>
+      <ParserOptions>
+        <option name="COMMONMARK_LISTS" value="false" />
+        <option name="DUMMY" value="false" />
+        <option name="EMOJI_SHORTCUTS" value="true" />
+        <option name="FLEXMARK_FRONT_MATTER" value="false" />
+        <option name="GFM_LOOSE_BLANK_LINE_AFTER_ITEM_PARA" value="false" />
+        <option name="GFM_TABLE_RENDERING" value="true" />
+        <option name="GITBOOK_URL_ENCODING" value="false" />
+        <option name="GITHUB_EMOJI_URL" value="false" />
+        <option name="GITHUB_LISTS" value="false" />
+        <option name="GITHUB_WIKI_LINKS" value="true" />
+        <option name="JEKYLL_FRONT_MATTER" value="false" />
+        <option name="SIM_TOC_BLANK_LINE_SPACER" value="false" />
+      </ParserOptions>
+    </ParserSettings>
+    <HtmlSettings headerTopEnabled="false" headerBottomEnabled="false" bodyTopEnabled="false" bodyBottomEnabled="false" embedUrlContent="false" addPageHeader="true">
+      <GeneratorProvider>
+        <provider providerId="com.vladsch.idea.multimarkdown.editor.javafx.html.generator" providerName="JavaFx HTML Generator" />
+      </GeneratorProvider>
+      <headerTop />
+      <headerBottom />
+      <bodyTop />
+      <bodyBottom />
+    </HtmlSettings>
+    <CssSettings previewScheme="UI_SCHEME" cssUri="" isCssUriEnabled="false" isCssTextEnabled="false" isDynamicPageWidth="true">
+      <StylesheetProvider>
+        <provider providerId="com.vladsch.idea.multimarkdown.editor.javafx.html.css" providerName="Default JavaFx Stylesheet" />
+      </StylesheetProvider>
+      <ScriptProviders />
+      <cssText />
+    </CssSettings>
+    <HtmlExportSettings updateOnSave="false" parentDir="$ProjectFileDir$" targetDir="$ProjectFileDir$" cssDir="" scriptDir="" plainHtml="false" imageDir="" copyLinkedImages="false" imageUniquifyType="0" targetExt="" useTargetExt="false" noCssNoScripts="false" linkToExportedHtml="true" exportOnSettingsChange="true" regenerateOnProjectOpen="false" />
+    <LinkMapSettings>
+      <textMaps />
+    </LinkMapSettings>
+  </component>
   <component name="MavenProjectsManager">
     <option name="originalFiles">
       <list>
@@ -10,7 +78,131 @@
   <component name="PreferredVcsStorage">
     <preferredVcsName>ApexVCS</preferredVcsName>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_6" default="false" project-jdk-name="1.7" project-jdk-type="JavaSDK">
-    <output url="file://$PROJECT_DIR$/out" />
+  <component name="ProjectDictionaryState">
+    <dictionary name="wangwenxiang" />
+  </component>
+  <component name="ProjectInspectionProfilesVisibleTreeState">
+    <entry key="Project Default">
+      <profile-state>
+        <expanded-state>
+          <State>
+            <id />
+          </State>
+          <State>
+            <id>Compiler issuesJava</id>
+          </State>
+          <State>
+            <id>GPath inspectionsGroovy</id>
+          </State>
+          <State>
+            <id>Groovy</id>
+          </State>
+          <State>
+            <id>Internationalization issuesJava</id>
+          </State>
+          <State>
+            <id>JPA issues</id>
+          </State>
+          <State>
+            <id>JSON</id>
+          </State>
+          <State>
+            <id>Java</id>
+          </State>
+          <State>
+            <id>Java language level migration aidsJava</id>
+          </State>
+          <State>
+            <id>Kotlin</id>
+          </State>
+          <State>
+            <id>Performance issuesJava</id>
+          </State>
+          <State>
+            <id>Play</id>
+          </State>
+          <State>
+            <id>Properties Files</id>
+          </State>
+          <State>
+            <id>Properties FilesJava</id>
+          </State>
+          <State>
+            <id>Spring</id>
+          </State>
+          <State>
+            <id>Spring BootSpring</id>
+          </State>
+        </expanded-state>
+        <selected-state>
+          <State>
+            <id>Ant inspections</id>
+          </State>
+        </selected-state>
+      </profile-state>
+    </entry>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_6" default="false" project-jdk-name="1.7" project-jdk-type="JavaSDK" />
+  <component name="masterDetails">
+    <states>
+      <state key="GlobalLibrariesConfigurable.UI">
+        <settings>
+          <last-edited>Python 3.5.1 (/Library/Frameworks/Python.framework/Versions/3.5/bin/python3.5) interpreter library</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="JdkListConfigurable.UI">
+        <settings>
+          <last-edited>1.7</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectJDKs.UI">
+        <settings>
+          <last-edited>1.7</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectLibrariesConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ScopeChooserConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
   </component>
 </project>
