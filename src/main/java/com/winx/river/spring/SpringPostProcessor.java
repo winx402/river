@@ -1,6 +1,8 @@
 package com.winx.river.spring;
 
 import com.winx.river.base.ProxyFactory;
+import com.winx.river.util.BeanUtil;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 
@@ -10,7 +12,11 @@ import org.springframework.beans.factory.config.BeanPostProcessor;
  */
 public class SpringPostProcessor implements BeanPostProcessor{
     public Object postProcessBeforeInitialization(Object o, String s) throws BeansException {
-        return ProxyFactory.getObjectProxy(o);
+        Object objectProxy = ProxyFactory.getObjectProxy(o);
+        if (o != objectProxy){
+            BeanUtil.copyProperties(o, objectProxy);
+        }
+        return objectProxy;
     }
 
     public Object postProcessAfterInitialization(Object o, String s) throws BeansException {

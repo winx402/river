@@ -39,7 +39,7 @@ public class LocalCacheTemplate {
 
     public Object getResult(Object[] params) {
         try {
-            Object object = loadingCache.get(new LocalCacheTemplate.Key(keyParsing.getKey(params)));
+            Object object = loadingCache.get(keyParsing.getParamsKey(params));
             return ABSENT.equals(object) ? null : object;
         } catch (ExecutionException e) {
             throw new ImplantMethodExecuteException("get value from local cache error", e);
@@ -53,12 +53,20 @@ public class LocalCacheTemplate {
 
         private Object[] objectKeys;
 
-        public Key(Object[] objects) {
+        private boolean cacheFirst = true;
+
+        Key(Object[] objects) {
             this.objectKeys = objects;
+        }
+
+        Key(Object[] objectKeys, boolean cacheFirst) {
+            this.objectKeys = objectKeys;
+            this.cacheFirst = cacheFirst;
         }
 
         @Override
         public boolean equals(Object o) {
+            if (!this.cacheFirst) return false;
             if (this == o) return true;
             if (!(o instanceof Key)) return false;
 

@@ -12,6 +12,15 @@ public class CollectionUtil {
         return collection == null || collection.isEmpty();
     }
 
+    public static boolean isEmpty(Collection<?> ... collections) {
+        if (isEmpty(collections)) return true;
+        for (Collection collection : collections){
+            if (isEmpty(collection)) return true;
+        }
+        return false;
+    }
+
+
     public static boolean isNotEmpty(Collection<?> collection) {
         return !isEmpty(collection);
     }

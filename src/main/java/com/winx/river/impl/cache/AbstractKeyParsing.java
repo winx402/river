@@ -20,19 +20,55 @@ import static com.winx.river.impl.cache.AbstractKeyParsing.Builder.TOTAL_STRING;
  * @author wangwenxiang
  * @create 2017-05-17.
  */
-public abstract class AbstractKeyParsing implements CacheKeyGetter{
+public abstract class AbstractKeyParsing implements CacheKeyGetter {
 
-    public abstract Object[] getKey(Object[] params);
+    public abstract LocalCacheTemplate.Key getParamsKey(Object[] params);
+
+    private static final int DEFAULT_CACHE_FIRST = -1;
 
     static Builder newBuilder() {
         return new Builder();
     }
 
+    /**
+     * the index of param expression get value from cache or not
+     * the default value -1 show that the value from cache first
+     * other value show that the index of the param which is boolean type expression whether from cache
+     */
+    protected int cacheFirst;
+
+    Object[] wipeOffCacheFirst(Object[] params){
+        if (cacheFirst(params)) return params;
+        Object[] paramKey = new Object[params.length - 1];
+        System.arraycopy(params, 0, paramKey, 0, cacheFirst);
+        System.arraycopy(params, cacheFirst + 1, paramKey, cacheFirst, paramKey.length - cacheFirst);
+        return paramKey;
+    }
+
+    boolean cacheFirst(Object[] params){
+        if (cacheFirst == DEFAULT_CACHE_FIRST) return true;
+        return (Boolean) params[cacheFirst];
+    }
+
     public static final class DefaultKeyGetter extends AbstractKeyParsing {
 
-        public Object[] getKey(Object[] params) {
-            return params;
+        DefaultKeyGetter() {
+            cacheFirst = DEFAULT_CACHE_FIRST;
         }
+
+        public Object[] getKey(Object[] params) {
+            return wipeOffCacheFirst(params);
+        }
+
+        public LocalCacheTemplate.Key getParamsKey(Object[] params) {
+            Object[] key = getKey(params);
+            return new LocalCacheTemplate.Key(key, cacheFirst(params));
+        }
+    }
+
+    AbstractKeyParsing setCacheFirst(int cacheFirst) {
+        this.cacheFirst = cacheFirst;
+        return this;
     }
 
     /**
@@ -49,7 +85,11 @@ public abstract class AbstractKeyParsing implements CacheKeyGetter{
         }
 
         public Object[] getKey(Object[] params) {
-            return cacheKeyGetter.getKey(params);
+            return cacheKeyGetter.getKey(wipeOffCacheFirst(params));
+        }
+
+        public LocalCacheTemplate.Key getParamsKey(Object[] params) {
+            return new LocalCacheTemplate.Key(getKey(params), cacheFirst(params));
         }
     }
 
@@ -69,6 +109,10 @@ public abstract class AbstractKeyParsing implements CacheKeyGetter{
                 result[i] = params[paramsIndex[i]];
             }
             return result;
+        }
+
+        public LocalCacheTemplate.Key getParamsKey(Object[] params) {
+            return new LocalCacheTemplate.Key(getKey(params), cacheFirst(params));
         }
     }
 
@@ -102,6 +146,10 @@ public abstract class AbstractKeyParsing implements CacheKeyGetter{
                 size += keyByOneParam.length;
             }
             return result;
+        }
+
+        public LocalCacheTemplate.Key getParamsKey(Object[] params) {
+            return new LocalCacheTemplate.Key(getKey(params), cacheFirst(params));
         }
 
         private Object[] getKeyByOneParam(Object param, List<String> names) {
@@ -139,6 +187,10 @@ public abstract class AbstractKeyParsing implements CacheKeyGetter{
             }
             return result;
         }
+
+        public LocalCacheTemplate.Key getParamsKey(Object[] params) {
+            return new LocalCacheTemplate.Key(getKey(params), cacheFirst(params));
+        }
     }
 
     static class Builder {
@@ -152,18 +204,23 @@ public abstract class AbstractKeyParsing implements CacheKeyGetter{
             Cache annotation = method.getAnnotation(Cache.class);
             Annotation[][] parameterAnnotations = method.getParameterAnnotations();
             CacheKeyRecord cacheKeyRecord = keyDefine(annotation, parameterAnnotations);
+            cacheKeyRecord.setParamsType(method.getParameterTypes());
             int i = cacheKeyRecord.haveDefine();
+            int cacheFirst = cacheKeyRecord.generateCacheFirst();
             switch (i) {
                 case CacheKeyRecord.NONE_PARAMS:
-                    return SingletonClassUtil.newWholeKeyGetter();
+                    if (cacheFirst == DEFAULT_CACHE_FIRST){
+                        return SingletonClassUtil.newWholeKeyGetter();
+                    }
+                    return new DefaultKeyGetter().setCacheFirst(cacheFirst);
                 case CacheKeyRecord.KEY_GETTER:
-                    return new CustomKeyGetter(SingletonClassUtil.newCacheKeyGetter(cacheKeyRecord.getKeyGetter()));
+                    return new CustomKeyGetter(SingletonClassUtil.newCacheKeyGetter(cacheKeyRecord.getKeyGetter())).setCacheFirst(cacheFirst);
                 case CacheKeyRecord.PARAM_NAMES:
-                    return new PartKeyGetter(cacheKeyRecord.getParamNames());
+                    return new PartKeyGetter(cacheKeyRecord.getParamNames()).setCacheFirst(cacheFirst);
                 case CacheKeyRecord.KEY_INDEX:
-                    return new IndexKeyGetter(cacheKeyRecord.getKeyIndex());
+                    return new IndexKeyGetter(cacheKeyRecord.getKeyIndex()).setCacheFirst(cacheFirst);
                 default:
-                    return new MultiKeyGetter(cacheKeyRecord);
+                    return new MultiKeyGetter(cacheKeyRecord).setCacheFirst(cacheFirst);
             }
         }
 
@@ -181,6 +238,7 @@ public abstract class AbstractKeyParsing implements CacheKeyGetter{
             }
             String[][] paramNames = new String[annotations.length][];
             List<Integer> indexs = Lists.newArrayList();
+            List<Integer> firstIndexs = Lists.newArrayList();
             for (int i = 0; i < annotations.length; i++) {
                 String[] strings = parsingCacheKey(haveCacheKey(annotations[i]));
                 if (TOTAL_STRING == strings) {
@@ -188,9 +246,14 @@ public abstract class AbstractKeyParsing implements CacheKeyGetter{
                     strings = NONE_STRING;
                 }
                 paramNames[i] = strings;
+
+                if (haveCacheFirst(annotations[i])) {
+                    firstIndexs.add(i);
+                }
             }
             cacheKeyRecord.setKeyIndex(mergeIndexs(indexs, ints));
             cacheKeyRecord.setParamNames(paramNames);
+            cacheKeyRecord.setCacheFirst(firstIndexs);
             return cacheKeyRecord;
         }
 
@@ -227,13 +290,22 @@ public abstract class AbstractKeyParsing implements CacheKeyGetter{
 
         private CacheKey haveCacheKey(Annotation[] annotations) {
             if (CollectionUtil.isEmpty(annotations)) return null;
-            Class<CacheKey> cacheKeyClass = CacheKey.class;
             for (Annotation annotation : annotations) {
-                if (annotation.annotationType() == cacheKeyClass) {
+                if (annotation.annotationType() == CacheKey.class) {
                     return (CacheKey) annotation;
                 }
             }
             return null;
+        }
+
+        private boolean haveCacheFirst(Annotation[] annotations) {
+            if (CollectionUtil.isEmpty(annotations)) return false;
+            for (Annotation annotation : annotations) {
+                if (annotation.annotationType() == CacheFirst.class) {
+                    return true;
+                }
+            }
+            return false;
         }
 
         private enum ParamsGetterType {
@@ -252,9 +324,11 @@ public abstract class AbstractKeyParsing implements CacheKeyGetter{
 
         private class CacheKeyRecord {
 
+            private Class<?>[] paramsTypes;
             private int[] keyIndex;
             private Class<? extends CacheKeyGetter> keyGetter;
             private String[][] paramNames;
+            private List<Integer> cacheFirst;
 
             private static final int NONE_PARAMS = 0;
             private static final int KEY_GETTER = 1;
@@ -273,6 +347,18 @@ public abstract class AbstractKeyParsing implements CacheKeyGetter{
                     result += KEY_INDEX;
                 }
                 return result;
+            }
+
+            private int generateCacheFirst() {
+                if (CollectionUtil.isEmpty(cacheFirst) || CollectionUtil.isEmpty(paramsTypes)) {
+                    return DEFAULT_CACHE_FIRST;
+                }
+                for (Integer integer : cacheFirst) {
+                    if (paramsTypes[integer] == boolean.class || paramsTypes[integer] == Boolean.class){
+                        return integer;
+                    }
+                }
+                return DEFAULT_CACHE_FIRST;
             }
 
             private boolean haveParamNames() {
@@ -312,6 +398,14 @@ public abstract class AbstractKeyParsing implements CacheKeyGetter{
 
             void setParamNames(String[][] paramNames) {
                 this.paramNames = paramNames;
+            }
+
+            void setCacheFirst(List<Integer> first) {
+                this.cacheFirst = first;
+            }
+
+            void setParamsType(Class<?>[] parameterTypes) {
+                this.paramsTypes = parameterTypes;
             }
         }
     }
