@@ -1,8 +1,6 @@
 package com.winx.river.spring;
 
 import com.winx.river.base.ProxyFactory;
-import com.winx.river.util.BeanUtil;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 

@@ -1,6 +1,7 @@
 package com.winx.river.base;
 
 import com.winx.river.exception.ImplantMethodExecuteException;
+import com.winx.river.exception.InterruptProcessException;
 import com.winx.river.exception.RateLimitTimeOutException;
 import net.sf.cglib.proxy.MethodInterceptor;
 import net.sf.cglib.proxy.MethodProxy;
@@ -19,7 +20,9 @@ public abstract class BaseInterceptor extends MethodPointerHandler.MethodPointer
             return implant();
         } catch (RateLimitTimeOutException timeOut) {
             throw timeOut;
-        } catch (Exception e) {
+        } catch (InterruptProcessException e) {
+            throw e;
+        }  catch (Exception e) {
             throw new ImplantMethodExecuteException(e);
         } finally {
             clear();

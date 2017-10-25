@@ -19,7 +19,7 @@ public @interface Cache {
 
     TimeUnit timeUnit() default TimeUnit.SECONDS;
 
-    int timeOut() default -1;
+    long timeOut() default -1;
 
     int maxSize() default -1;
 
