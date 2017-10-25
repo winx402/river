@@ -78,6 +78,7 @@
   <component name="PreferredVcsStorage">
     <preferredVcsName>ApexVCS</preferredVcsName>
   </component>
+<<<<<<< HEAD
   <component name="ProjectDictionaryState">
     <dictionary name="wangwenxiang" />
   </component>
@@ -204,5 +205,9 @@
         </settings>
       </state>
     </states>
+=======
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_6" default="false" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/out" />
+>>>>>>> fe2024c2d5c2d369165b7b0365d2b64e11fbf0a6
   </component>
 </project>
