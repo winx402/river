@@ -2,22 +2,28 @@ package com.winx.river.impl.cache;
 
 import com.google.common.base.Optional;
 import com.google.common.cache.LoadingCache;
+import com.winx.river.base.MethodPointerHandler;
+import com.winx.river.exception.HaveNotKeyException;
 import com.winx.river.exception.ImplantMethodExecuteException;
+import com.winx.river.exception.InterruptProcessException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Method;
 import java.util.Arrays;
-import java.util.concurrent.ExecutionException;
 
 /**
  * @author wangwenxiang
  * @create 2017-05-16.
  */
-public class LocalCacheTemplate {
+public class LocalCacheTemplate extends MethodPointerHandler.MethodPointerLimit7 {
 
     /**
      * parse the cache key from method params
      */
     private AbstractKeyParsing keyParsing;
+
+    private static final Logger log = LoggerFactory.getLogger(LocalCacheTemplate.class);
 
     /**
      * local cache object
@@ -37,13 +43,23 @@ public class LocalCacheTemplate {
         return localCacheTemplate;
     }
 
-    public Object getResult(Object[] params) {
-        try {
-            Object object = loadingCache.get(keyParsing.getParamsKey(params));
-            return ABSENT.equals(object) ? null : object;
-        } catch (ExecutionException e) {
-            throw new ImplantMethodExecuteException("get value from local cache error", e);
+    Object getResult(Object[] params) {
+        Key paramsKey = keyParsing.getParamsKey(params);
+        if (paramsKey == null) {
+            throw new HaveNotKeyException("cache key parsing failed, params : " + Arrays.toString(params));
         }
+        paramsKey.setMethod(getMethod());
+        Object object;
+        try {
+            object = loadingCache.get(paramsKey);
+        } catch (Exception e) {
+            if (e.getCause() instanceof InterruptProcessException)
+                object = getResult();
+            else
+                throw new ImplantMethodExecuteException(e);
+        }
+
+        return ABSENT.equals(object) ? null : object;
     }
 
     /**
@@ -51,34 +67,44 @@ public class LocalCacheTemplate {
      */
     static class Key {
 
+        private Method method;
+
         private Object[] objectKeys;
 
-        private boolean cacheFirst = true;
+        CacheOptions cacheOptions;
 
-        Key(Object[] objects) {
-            this.objectKeys = objects;
+        Key(Object[] objectKeys, CacheOptions cacheOptions) {
+            this.objectKeys = objectKeys;
+            this.cacheOptions = cacheOptions;
         }
 
-        Key(Object[] objectKeys, boolean cacheFirst) {
-            this.objectKeys = objectKeys;
-            this.cacheFirst = cacheFirst;
+        public Object[] getObjectKeys() {
+            return objectKeys;
+        }
+
+        public void setMethod(Method method) {
+            this.method = method;
+        }
+
+        public Method getMethod() {
+            return method;
         }
 
         @Override
         public boolean equals(Object o) {
-            if (!this.cacheFirst) return false;
+            if (!this.cacheOptions.isUseCache()) return false;
             if (this == o) return true;
             if (!(o instanceof Key)) return false;
 
             Key key = (Key) o;
-
-//         Probably incorrect - comparing Object[] arrays with Arrays.equals
-            return Arrays.equals(objectKeys, key.objectKeys);
+            return (method != null ? method.equals(key.method) : key.method == null) && Arrays.equals(objectKeys, key.objectKeys);
         }
 
         @Override
         public int hashCode() {
-            return Arrays.hashCode(objectKeys);
+            int result = method != null ? method.hashCode() : 0;
+            result = 31 * result + Arrays.hashCode(objectKeys);
+            return result;
         }
 
         @Override

@@ -151,6 +151,10 @@ public class MethodPointerHandler {
                 throw new ImplantMethodExecuteException(throwable);
             }
         }
+
+        protected static void setResult(Object result) {
+            pointerThreadLocal.get().setResult(result);
+        }
     }
 
     public static class MethodPointerLimit5 {
@@ -176,5 +180,17 @@ public class MethodPointerHandler {
         protected static ReturnType getReturnType() {
             return pointerThreadLocal.get().getReturnType();
         }
+    }
+
+    public static class MethodPointerLimit7 {
+
+        protected Method getMethod() {
+            return pointerThreadLocal.get().getMethod();
+        }
+
+        protected Object getResult() {
+            return pointerThreadLocal.get().getResult();
+        }
+
     }
 }

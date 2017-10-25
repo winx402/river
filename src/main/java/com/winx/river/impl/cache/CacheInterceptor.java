@@ -6,7 +6,7 @@ import java.lang.reflect.Method;
 
 public class CacheInterceptor extends AbstractExcuteRelation<Method, LocalCacheTemplate> {
 
-    protected Object implant() {
+    protected Object implant(){
         LocalCacheTemplate bindObject = getBindObject();
         return bindObject.getResult(getParams());
     }
