@@ -6,7 +6,6 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * @author wangwenxiang
- * @create 2017-05-24.
  */
 class RateLimiterHandler {
 

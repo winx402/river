@@ -14,7 +14,6 @@ import java.util.Arrays;
 
 /**
  * @author wangwenxiang
- * @create 2017-05-16.
  */
 public class LocalCacheTemplate extends MethodPointerHandler.MethodPointerLimit7 {
 

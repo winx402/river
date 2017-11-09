@@ -10,7 +10,6 @@ import java.util.Map;
 
 /**
  * @author wangwenxiang
- * @create 2017-05-15.
  */
 public class MethodPointerHandler {
 

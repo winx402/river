@@ -4,26 +4,29 @@ import com.github.winx402.river.base.MethodPointerHandler;
 
 /**
  * @author wangwenxiang
- * @create 2017-05-12.
  */
 public abstract class AopPoint extends MethodPointerHandler.MethodPointerLimit2 {
     /**
      * before call the target method
+     * @throws Exception
      */
     public abstract void before() throws Exception;
 
     /**
      * after call the target method whether success
+     * @throws Exception
      */
     public abstract void after() throws Exception;
 
     /**
      * after call the target method when success
+     * @throws Exception
      */
     public abstract void afterReturing() throws Exception;
 
     /**
      * after call the target method when failed
+     * @throws Exception
      */
     public abstract void afterThrowing() throws Exception;
 }

@@ -18,7 +18,6 @@ import static com.github.winx402.river.impl.cache.AbstractKeyParsing.Builder.TOT
 
 /**
  * @author wangwenxiang
- * @create 2017-05-17.
  */
 public abstract class AbstractKeyParsing implements CacheKeyGetter {
 

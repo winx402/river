@@ -7,7 +7,6 @@ import java.lang.reflect.Method;
 
 /**
  * @author wangwenxiang
- * @create 2017-05-13.
  */
 public class MethodPointer {
     private Object instance;

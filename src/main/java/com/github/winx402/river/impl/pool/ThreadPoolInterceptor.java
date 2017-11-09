@@ -10,7 +10,6 @@ import java.util.concurrent.Future;
 
 /**
  * @author wangwenxiang
- * @create 2017-05-24.
  */
 public class ThreadPoolInterceptor extends AbstractExcuteRelation<Method, ExecutorService> {
 

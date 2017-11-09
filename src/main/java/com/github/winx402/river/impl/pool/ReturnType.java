@@ -7,7 +7,6 @@ import java.lang.reflect.Type;
 
 /**
  * @author wangwenxiang
- * @create 2017-05-27.
  */
 public enum ReturnType {
     UNKNOW, VOID, CARRIER, OTHER;

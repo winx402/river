@@ -17,7 +17,6 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * @author wangwenxiang
- * @create 2017-05-17.
  */
 public class LocalCacheBuilder extends MethodPointerHandler.MethodPointerLimit4 {
 

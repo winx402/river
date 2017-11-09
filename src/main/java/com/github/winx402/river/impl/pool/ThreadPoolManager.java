@@ -15,7 +15,6 @@ import java.util.concurrent.*;
 
 /**
  * @author wangwenxiang
- * @create 2017-05-26.
  */
 public class ThreadPoolManager {
 

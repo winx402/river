@@ -6,7 +6,6 @@ import java.util.concurrent.ExecutorService;
 
 /**
  * @author wangwenxiang
- * @create 2017-05-26.
  */
 public interface ParsingAnnotation2Executor<T extends Annotation> {
 

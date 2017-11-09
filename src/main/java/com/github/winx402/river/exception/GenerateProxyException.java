@@ -2,7 +2,6 @@ package com.github.winx402.river.exception;
 
 /**
  * @author wangwenxiang
- * @create 2017-05-21.
  */
 public class GenerateProxyException extends RuntimeException {
     public GenerateProxyException() {

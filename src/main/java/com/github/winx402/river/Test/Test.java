@@ -6,7 +6,6 @@ import com.github.winx402.river.impl.cache.CacheOptions;
 
 /**
  * @author didi
- * @create 2017-09-29.
  */
 public class Test {
 

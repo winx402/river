@@ -9,7 +9,6 @@ import java.util.Map;
 
 /**
  * @author wangwenxiang
- * @create 2017-05-12.
  */
 public class ClassInstanceTool {
     private static Map<Class, Object> singletonMap = Maps.newHashMap();

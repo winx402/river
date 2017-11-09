@@ -7,7 +7,6 @@ import java.util.Map;
 
 /**
  * @author wangwenxiang
- * @create 2017-05-12.
  */
 public abstract class AbstractExcuteRelation<K, V> extends BaseInterceptor {
     private Map<K, V> relationMap = Maps.newHashMap();

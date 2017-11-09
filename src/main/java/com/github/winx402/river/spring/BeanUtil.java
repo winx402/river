@@ -8,7 +8,6 @@ import java.lang.reflect.Field;
 
 /**
  * @author didi
- * @create 2017-10-24.
  */
 class BeanUtil {
     static void copyProperties(Object source, Object target) {

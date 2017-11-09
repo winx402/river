@@ -9,7 +9,6 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * @author wangwenxiang
- * @create 2017-05-12.
  * aop the method
  */
 @Target({ElementType.METHOD})

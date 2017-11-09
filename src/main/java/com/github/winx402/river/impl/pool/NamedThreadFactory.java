@@ -5,7 +5,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * @author wangwenxiang
- * @create 2017-05-26.
  */
 public class NamedThreadFactory implements ThreadFactory {
     private final AtomicInteger threadNum;

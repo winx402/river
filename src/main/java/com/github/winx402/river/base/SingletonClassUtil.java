@@ -5,7 +5,6 @@ import com.github.winx402.river.impl.cache.CacheKeyGetter;
 
 /**
  * @author wangwenxiang
- * @create 2017-05-20.
  */
 public class SingletonClassUtil {
 

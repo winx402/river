@@ -7,7 +7,6 @@ import java.util.concurrent.Callable;
 
 /**
  * @author wangwenxiang
- * @create 2017-05-27.
  */
 public class CallableGenerator extends MethodPointerHandler.MethodPointerLimit5 {
 

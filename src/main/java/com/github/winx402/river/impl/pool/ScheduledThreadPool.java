@@ -5,7 +5,6 @@ import java.util.concurrent.ThreadFactory;
 
 /**
  * @author wangwenxiang
- * @create 2017-05-26.
  */
 @Target({ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)

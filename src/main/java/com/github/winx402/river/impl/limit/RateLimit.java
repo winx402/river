@@ -5,25 +5,27 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * @author wangwenxiang
- * @create 2017-05-24.
  */
 @Target({ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface RateLimit {
     /**
      * rate limit per second
+     * @return permitsPerSecond
      */
     double permitsPerSecond();
 
     /**
      * warm up duration
+     * @return warmupPeriod
      */
     long warmupPeriod() default 0L;
 
     String group() default "";
 
     /**
-     * it will take effect when timeOut > 0
+     * it will take effect when timeOut less than 0
+     * @return timeOut
      */
     long timeOut() default 0L;
 }

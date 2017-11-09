@@ -7,7 +7,6 @@ import java.util.concurrent.Future;
 
 /**
  * @author wangwenxiang
- * @create 2017-06-01.
  */
 public abstract class AbstractCarrier<T> extends MethodPointerHandler.MethodPointerLimit6 implements Carrier<T> {
 

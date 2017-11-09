@@ -10,7 +10,6 @@ import java.lang.reflect.Method;
 
 /**
  * @author wangwenxiang
- * @create 2017-05-09.
  */
 public abstract class BaseInterceptor extends MethodPointerHandler.MethodPointerLimit1 implements MethodInterceptor {
 

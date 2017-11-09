@@ -2,7 +2,6 @@ package com.github.winx402.river.impl.cache;
 
 /**
  * @author didi
- * @create 2017-10-25.
  */
 public class CacheOptions {
     /**

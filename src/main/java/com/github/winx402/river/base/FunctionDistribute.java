@@ -11,7 +11,6 @@ import com.github.winx402.river.impl.limit.RateLimitInterceptor;
 import com.github.winx402.river.impl.pool.*;
 import com.github.winx402.river.util.CollectionUtil;
 import com.google.common.collect.Sets;
-import com.winx.river.impl.pool.*;
 import net.sf.cglib.proxy.Callback;
 import net.sf.cglib.proxy.NoOp;
 
@@ -21,7 +20,6 @@ import java.util.*;
 
 /**
  * @author wangwenxiang
- * @create 2017-05-13.
  * 识别注解，参数绑定
  */
 public class FunctionDistribute {
