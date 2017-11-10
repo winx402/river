@@ -75,6 +75,7 @@ public class MethodPointerHandler {
 
         /**
          * 获取目标方法Method对象
+         * @return Method
          */
         protected Method getMethod() {
             return pointerThreadLocal.get().getMethod();
@@ -82,6 +83,7 @@ public class MethodPointerHandler {
 
         /**
          * 获取入参
+         * @return Object[]
          */
         protected Object[] getParams() {
             return pointerThreadLocal.get().getObjects();
@@ -89,6 +91,7 @@ public class MethodPointerHandler {
 
         /**
          * 修改入参
+         * @param objects objects
          */
         protected void setParams(Object[] objects) {
             pointerThreadLocal.get().setObjects(objects);
@@ -97,6 +100,7 @@ public class MethodPointerHandler {
         /**
          * 获取返回结果
          * 在before中调用这个方法将返回null
+         * @return Object
          */
         protected Object getResult() {
             return pointerThreadLocal.get().getResult();
