@@ -5,6 +5,7 @@ import com.google.common.base.Objects;
 import com.google.common.base.Preconditions;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 
 /**
  * @author didi
@@ -17,8 +18,12 @@ class BeanUtil {
         Field[] sourceFields = source.getClass().getDeclaredFields();
         Field[] targetFields = superclass.getDeclaredFields();
         if (CollectionUtil.isEmpty(sourceFields) || CollectionUtil.isEmpty(targetFields)) return;
-        for (Field sourceField : sourceFields) {
-            for (Field targetField : targetFields) {
+        for (Field targetField : targetFields) {
+            int modifiers = targetField.getModifiers();
+            if (Modifier.isStatic(modifiers) && Modifier.isFinal(modifiers)){
+                continue;
+            }
+            for (Field sourceField : sourceFields) {
                 if (Objects.equal(sourceField.getName(), targetField.getName())) {
                     sourceField.setAccessible(true);
                     targetField.setAccessible(true);

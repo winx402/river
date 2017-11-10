@@ -12,13 +12,18 @@ import java.util.concurrent.ThreadFactory;
 public @interface SingleThreadScheduledExecutor {
     /**
      * thread name prefix
+     * @return SingleThreadScheduledExecutor
      */
     String name() default "";
 
     /**
      * the same group will use the same one executor
+     * @return group
      */
     String group() default "";
 
+    /**
+     * @return threadFactory
+     */
     Class<ThreadFactory> threadFactory() default ThreadFactory.class;
 }

@@ -11,13 +11,18 @@ import java.util.concurrent.ThreadFactory;
 public @interface CachedThreadPool{
     /**
      * thread name prefix
+     * @return name
      */
     String name() default "";
 
     /**
      * the same group will use the same one executor
+     * @return group
      */
     String group() default "";
 
+    /**
+     * @return threadFactory
+     */
     Class<ThreadFactory> threadFactory() default ThreadFactory.class;
 }
