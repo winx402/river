@@ -28,7 +28,7 @@ public class LocalCacheTemplate extends MethodPointerHandler.MethodPointerLimit7
      * local cache object
      * guava cache
      */
-    private LoadingCache<Key, Object> loadingCache;
+    LoadingCache<Key, Object> loadingCache;
 
     static final Optional ABSENT = Optional.absent();
 
@@ -76,6 +76,12 @@ public class LocalCacheTemplate extends MethodPointerHandler.MethodPointerLimit7
         Key(Object[] objectKeys, CacheOptions cacheOptions) {
             this.objectKeys = objectKeys;
             this.cacheOptions = cacheOptions;
+        }
+
+        Key(Method method, Object[] objectKeys) {
+            this.method = method;
+            this.objectKeys = objectKeys;
+            this.cacheOptions = AbstractKeyParsing.defaultCacheOption;
         }
 
         public Object[] getObjectKeys() {

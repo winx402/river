@@ -25,7 +25,7 @@ public abstract class AbstractKeyParsing implements CacheKeyGetter {
 
     private static final int DEFAULT_CACHE_OPTIONS = -1;
 
-    private static final CacheOptions defaultCacheOption = new CacheOptions(true, true);
+    static final CacheOptions defaultCacheOption = new CacheOptions(true, true);
 
     static Builder newBuilder() {
         return new Builder();

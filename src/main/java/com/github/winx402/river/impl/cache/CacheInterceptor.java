@@ -1,8 +1,11 @@
 package com.github.winx402.river.impl.cache;
 
 import com.github.winx402.river.base.AbstractExcuteRelation;
+import com.google.common.cache.LoadingCache;
 
 import java.lang.reflect.Method;
+import java.util.Collection;
+import java.util.List;
 
 public class CacheInterceptor extends AbstractExcuteRelation<Method, LocalCacheTemplate> {
 
@@ -18,5 +21,13 @@ public class CacheInterceptor extends AbstractExcuteRelation<Method, LocalCacheT
 
     protected LocalCacheTemplate getBindObject() {
         return getValue(getMethod());
+    }
+
+    LocalCacheTemplate getLocalCacheTemplateCache(Method method){
+        return getValue(method);
+    }
+
+    Collection<LocalCacheTemplate> getLocalCacheTemplateCaches(){
+        return getValues();
     }
 }

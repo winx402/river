@@ -26,7 +26,7 @@ public class FunctionDistribute {
 
     private static final BaseInterceptor threadPoolInterceptor = new ThreadPoolInterceptor();
 
-    private static Map<Class<? extends Annotation>, BaseInterceptor> baseInterceptorMap = new HashMap<Class<? extends Annotation>, BaseInterceptor>(){{
+    public static final Map<Class<? extends Annotation>, BaseInterceptor> baseInterceptorMap = new HashMap<Class<? extends Annotation>, BaseInterceptor>(){{
         put(Aop.class, new AopInterceptor());
         put(Around.class, new AroundInterceptor());
         put(Cache.class, new CacheInterceptor());

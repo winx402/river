@@ -24,11 +24,20 @@ public class LocalCacheBuilder extends MethodPointerHandler.MethodPointerLimit4 
 
     private static final Map<CacheDescription, LoadingCache<LocalCacheTemplate.Key, Object>> CACHE_MAP = Maps.newHashMap();
 
+    static LoadingCache<LocalCacheTemplate.Key, Object> getCacheFromMap(Method method){
+        CacheDescription cacheDescription = CacheDescription.fromCacheAnnotation(getMethodCache(method));
+        return CACHE_MAP.get(cacheDescription);
+    }
+
     static LoadingCache<LocalCacheTemplate.Key, Object> build(Method method) {
+        return getCache(getMethodCache(method));
+    }
+
+    private static Cache getMethodCache(Method method){
         Preconditions.checkNotNull(method, "method is null");
-        Cache annotation = method.getAnnotation(Cache.class);
-        Preconditions.checkNotNull(annotation, "cache annotation is null");
-        return getCache(annotation);
+        Cache cache = method.getAnnotation(Cache.class);
+        Preconditions.checkNotNull(cache, "cache annotation is null");
+        return cache;
     }
 
     private static LoadingCache<LocalCacheTemplate.Key, Object> getCache(Cache cache) {
@@ -57,10 +66,10 @@ public class LocalCacheBuilder extends MethodPointerHandler.MethodPointerLimit4 
                 Object result = isNull(doInvoke());
                 if (!key.cacheOptions.isAsCache()) {
                     setResult(result);
-                    log.debug("get result not from cache, method:{}, params: {}", key.getMethod().getName(), Arrays.toString(key.getObjectKeys()));
+                    log.debug("not set result as cache, method:{}, params: {}", key.getMethod().getName(), Arrays.toString(key.getObjectKeys()));
                     throw new InterruptProcessException();
                 }
-                log.debug("get result from cache, method:{}, params: {}", key.getMethod().getName(), Arrays.toString(key.getObjectKeys()));
+                log.debug("set result as cache, method:{}, params: {}", key.getMethod().getName(), Arrays.toString(key.getObjectKeys()));
                 return result;
             }
         });

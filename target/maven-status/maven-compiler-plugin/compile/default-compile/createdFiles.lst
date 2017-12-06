@@ -26,6 +26,7 @@ com/github/winx402/river/base/MethodPointerHandler$MethodPointerLimit2.class
 com/github/winx402/river/impl/pool/AbstractCarrier.class
 com/github/winx402/river/impl/limit/RateLimitInterceptor.class
 com/github/winx402/river/impl/pool/AbstractCarrier$DirectCarrier.class
+com/github/winx402/river/impl/cache/CacheHandler.class
 com/github/winx402/river/impl/cache/AbstractKeyParsing$1.class
 com/github/winx402/river/impl/pool/ParsingAnnotation2Executor.class
 com/github/winx402/river/impl/pool/AbstractCarrier$1.class

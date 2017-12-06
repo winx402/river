@@ -3,6 +3,8 @@ package com.github.winx402.river.base;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Maps;
 
+import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -27,5 +29,9 @@ public abstract class AbstractExcuteRelation<K, V> extends BaseInterceptor {
     protected V getValue(K k) {
         Preconditions.checkNotNull(k);
         return relationMap.get(k);
+    }
+
+    protected Collection<V> getValues(){
+        return relationMap.values();
     }
 }
